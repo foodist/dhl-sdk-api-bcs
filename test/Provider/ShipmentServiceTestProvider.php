@@ -244,4 +244,92 @@ class ShipmentServiceTestProvider
             'server error' => [$wsdl, $authStorage, $shipmentRequest, $soapFault],
         ];
     }
+
+    /**
+     * Provide request and response for the test case
+     * - shipment(s) sent to the API, all label(s) successfully booked.
+     *
+     * @return mixed[]
+     * @throws RequestValidatorException
+     */
+    public static function validateShipmentsSuccess()
+    {
+        $wsdl = __DIR__ . '/_files/gvapi-3.0/geschaeftskundenversand-api-3.0.wsdl';
+        $authStorage = AuthenticationStorageProvider::authSuccess();
+
+        $singleLabelRequest = ShipmentRequestProvider::createSingleShipmentSuccess();
+        $singleLabelResponseXml = \file_get_contents(__DIR__ . '/_files/validateshipment/singleShipmentSuccess.xml');
+
+        $multiLabelRequest = ShipmentRequestProvider::createMultiShipmentSuccess();
+        $multiLabelResponseXml = \file_get_contents(__DIR__ . '/_files/validateshipment/multiShipmentSuccess.xml');
+
+        return [
+            'single label success' => [$wsdl, $authStorage, $singleLabelRequest, $singleLabelResponseXml],
+            'multi label success' => [$wsdl, $authStorage, $multiLabelRequest, $multiLabelResponseXml],
+        ];
+    }
+
+    /**
+     * Provide request and response for the test case
+     * - shipment(s) sent to the API, some label(s) successfully booked.
+     *
+     * @return mixed[]
+     * @throws RequestValidatorException
+     */
+    public static function validateShipmentsPartialSuccess()
+    {
+        $wsdl = __DIR__ . '/_files/gvapi-3.0/geschaeftskundenversand-api-3.0.wsdl';
+        $authStorage = AuthenticationStorageProvider::authSuccess();
+
+        $labelRequest = ShipmentRequestProvider::createMultiShipmentPartialSuccess();
+        $labelResponse = \file_get_contents(__DIR__ . '/_files/validateshipment/multiShipmentPartialSuccess.xml');
+
+        return [
+            'multi label partial success' => [$wsdl, $authStorage, $labelRequest, $labelResponse],
+        ];
+    }
+
+    /**
+     * Provide request and response for the test case
+     * - shipment(s) sent to the API, all label(s) successfully booked, weak validation error occurred.
+     *
+     * @return mixed[]
+     * @throws RequestValidatorException
+     */
+    public static function validateShipmentsValidationWarning()
+    {
+        $wsdl = __DIR__ . '/_files/gvapi-3.0/geschaeftskundenversand-api-3.0.wsdl';
+        $authStorage = AuthenticationStorageProvider::authSuccess();
+
+        $labelRequest = ShipmentRequestProvider::createShipmentsValidationWarning();
+        $labelResponse = \file_get_contents(__DIR__ . '/_files/validateshipment/multiShipmentValidationWarning.xml');
+
+        return [
+            'multi label partial success' => [$wsdl, $authStorage, $labelRequest, $labelResponse],
+        ];
+    }
+
+    /**
+     * Provide request and response for the test case
+     * - shipment(s) sent to the API, no label(s) successfully booked, hard validation error occurred.
+     *
+     * @return mixed[]
+     * @throws RequestValidatorException
+     */
+    public static function validateShipmentsError()
+    {
+        $wsdl = __DIR__ . '/_files/gvapi-3.0/geschaeftskundenversand-api-3.0.wsdl';
+        $authStorage = AuthenticationStorageProvider::authSuccess();
+
+        $singleLabelRequest = ShipmentRequestProvider::createSingleShipmentError();
+        $singleLabelResponseXml = \file_get_contents(__DIR__ . '/_files/validateshipment/singleShipmentError.xml');
+
+        $multiLabelRequest = ShipmentRequestProvider::createMultiShipmentError();
+        $multiLabelResponseXml = \file_get_contents(__DIR__ . '/_files/validateshipment/multiShipmentError.xml');
+
+        return [
+            'single label validation error' => [$wsdl, $authStorage, $singleLabelRequest, $singleLabelResponseXml],
+            'multi label validation error' => [$wsdl, $authStorage, $multiLabelRequest, $multiLabelResponseXml],
+        ];
+    }
 }

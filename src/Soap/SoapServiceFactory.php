@@ -11,6 +11,7 @@ use Dhl\Sdk\Paket\Bcs\Api\ServiceFactoryInterface;
 use Dhl\Sdk\Paket\Bcs\Api\ShipmentServiceInterface;
 use Dhl\Sdk\Paket\Bcs\Model\CreateShipment\CreateShipmentResponseMapper;
 use Dhl\Sdk\Paket\Bcs\Model\DeleteShipment\DeleteShipmentResponseMapper;
+use Dhl\Sdk\Paket\Bcs\Model\ValidateShipment\ValidateShipmentResponseMapper;
 use Dhl\Sdk\Paket\Bcs\Service\ShipmentService;
 use Dhl\Sdk\Paket\Bcs\Soap\ClientDecorator\AuthenticationDecorator;
 use Dhl\Sdk\Paket\Bcs\Soap\ClientDecorator\ErrorHandlerDecorator;
@@ -46,6 +47,7 @@ class SoapServiceFactory implements ServiceFactoryInterface
     ): ShipmentServiceInterface {
         $createShipmentResponseMapper = new CreateShipmentResponseMapper();
         $deleteShipmentResponseMapper = new DeleteShipmentResponseMapper();
+        $validateShipmentResponseMapper = new ValidateShipmentResponseMapper();
 
         $pluginClient = new Client($this->soapClient);
         $pluginClient = new ErrorHandlerDecorator($pluginClient);
@@ -55,7 +57,8 @@ class SoapServiceFactory implements ServiceFactoryInterface
         $service = new ShipmentService(
             $pluginClient,
             $createShipmentResponseMapper,
-            $deleteShipmentResponseMapper
+            $deleteShipmentResponseMapper,
+            $validateShipmentResponseMapper
         );
 
         return $service;

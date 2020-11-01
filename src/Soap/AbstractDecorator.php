@@ -6,10 +6,14 @@ declare(strict_types=1);
 
 namespace Dhl\Sdk\Paket\Bcs\Soap;
 
+use Dhl\Sdk\Paket\Bcs\Exception\AuthenticationErrorException;
+use Dhl\Sdk\Paket\Bcs\Exception\DetailedErrorException;
 use Dhl\Sdk\Paket\Bcs\Model\CreateShipment\CreateShipmentOrderRequest;
 use Dhl\Sdk\Paket\Bcs\Model\CreateShipment\CreateShipmentOrderResponse;
 use Dhl\Sdk\Paket\Bcs\Model\DeleteShipment\DeleteShipmentOrderRequest;
 use Dhl\Sdk\Paket\Bcs\Model\DeleteShipment\DeleteShipmentOrderResponse;
+use Dhl\Sdk\Paket\Bcs\Model\ValidateShipment\ValidateShipmentOrderRequest;
+use Dhl\Sdk\Paket\Bcs\Model\ValidateShipment\ValidateShipmentResponse;
 
 /**
  * AbstractDecorator
@@ -46,5 +50,10 @@ abstract class AbstractDecorator extends AbstractClient
     public function deleteShipmentOrder(DeleteShipmentOrderRequest $requestType): DeleteShipmentOrderResponse
     {
         return $this->client->deleteShipmentOrder($requestType);
+    }
+
+    public function validateShipment(ValidateShipmentOrderRequest $requestType): ValidateShipmentResponse
+    {
+        return $this->client->validateShipment($requestType);
     }
 }

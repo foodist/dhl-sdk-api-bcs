@@ -12,6 +12,8 @@ use Dhl\Sdk\Paket\Bcs\Model\CreateShipment\CreateShipmentOrderRequest;
 use Dhl\Sdk\Paket\Bcs\Model\CreateShipment\CreateShipmentOrderResponse;
 use Dhl\Sdk\Paket\Bcs\Model\DeleteShipment\DeleteShipmentOrderRequest;
 use Dhl\Sdk\Paket\Bcs\Model\DeleteShipment\DeleteShipmentOrderResponse;
+use Dhl\Sdk\Paket\Bcs\Model\ValidateShipment\ValidateShipmentOrderRequest;
+use Dhl\Sdk\Paket\Bcs\Model\ValidateShipment\ValidateShipmentResponse;
 
 /**
  * AbstractClient
@@ -48,4 +50,18 @@ abstract class AbstractClient
      * @throws \SoapFault
      */
     abstract public function deleteShipmentOrder(DeleteShipmentOrderRequest $requestType): DeleteShipmentOrderResponse;
+
+    /**
+     * ValidateShipment is the operation call used to validate shipments before creating the labels.
+     *
+     * @param CreateShipmentOrderRequest $requestType
+     *
+     * @return CreateShipmentOrderResponse
+     *
+     * @throws AuthenticationErrorException
+     * @throws DetailedErrorException
+     * @throws \SoapFault
+     */
+    abstract public function validateShipment(ValidateShipmentOrderRequest $requestType): ValidateShipmentResponse;
+
 }
